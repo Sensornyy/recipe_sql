@@ -6,7 +6,7 @@ class SearchRecipesUseCase {
 
   SearchRecipesUseCase(this._recipeRepository);
 
-  List<RecipeEntity> getRecipes() {
-    return _recipeRepository.getRecipes();
+  Future<List<RecipeEntity>> getRecipes(String query) {
+    return _recipeRepository.loadRecipes(query);
   }
 }
