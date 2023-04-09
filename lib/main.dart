@@ -5,7 +5,7 @@ import 'package:recipe_sql/feat/recipes/presentation/screens/recipes_screen.dart
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  di.init();
+  await di.init();
   runApp(const MyApp());
 }
 

@@ -8,5 +8,7 @@ class RecipeState with _$RecipeState {
 
   const factory RecipeState.loaded(List<RecipeEntity> recipes) = _Loaded;
 
+  const factory RecipeState.saved() = _Saved;
+
   const factory RecipeState.failed() = _Failed;
 }
