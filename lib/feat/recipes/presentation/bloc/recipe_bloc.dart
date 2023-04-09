@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:recipe_sql/di_container/service_locator.dart' as di;
 import 'package:recipe_sql/feat/recipes/domain/entity/recipe_entity.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/load_recipes_use_case.dart';
@@ -21,11 +22,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
 
           final result = await loadRecipe(query);
 
-          if (result.runtimeType == List<RecipeEntity>) {
-            emit(RecipeState.loaded(result));
-          } else {
-            emit(const RecipeState.failed());
-          }
+          emit(RecipeState.loaded(result));
         },
       );
     });

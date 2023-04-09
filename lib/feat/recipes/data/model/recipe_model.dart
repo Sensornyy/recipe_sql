@@ -10,7 +10,7 @@ part 'recipe_model.g.dart';
 class RecipeModel extends RecipeEntity with _$RecipeModel {
   const factory RecipeModel({
     required String label,
-    required int calories,
+    required double calories,
     required String image,
     required List<String> ingredientLines,
   }) = _RecipeModel;

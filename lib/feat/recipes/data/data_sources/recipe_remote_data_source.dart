@@ -17,7 +17,7 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
   Future<List<RecipeModel>> loadRecipes(String query) async {
     final response = await client.get(
         Uri.parse(
-            'https://api.edamam.com/search?q=$query&app_id=5407434a&app_key=85ff6e56fe1beccebaa69980a095686d'),
+            'https://api.edamam.com/search?q=$query&to=50&app_id=5407434a&app_key=85ff6e56fe1beccebaa69980a095686d'),
         headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {

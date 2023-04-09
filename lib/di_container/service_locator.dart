@@ -6,24 +6,25 @@ import 'package:recipe_sql/feat/recipes/data/data_sources/recipe_remote_data_sou
 import 'package:recipe_sql/feat/recipes/data/repository/recipe_repository_impl.dart';
 import 'package:recipe_sql/feat/recipes/domain/repository/recipe_repository.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/load_recipes_use_case.dart';
+import 'package:recipe_sql/feat/recipes/presentation/bloc/recipe_bloc.dart';
 import 'package:recipe_sql/platform/network_info.dart';
 
 final sl = GetIt.instance;
 
 void init() {
+  sl.registerFactory(() => RecipeBloc());
   sl.registerLazySingleton(() => LoadRecipesUseCase(sl()));
 
   sl.registerLazySingleton<RecipeRepository>(
-        () => RecipeRepositoryImpl(
+    () => RecipeRepositoryImpl(
       networkInfo: sl(),
       remoteDataSource: sl(),
     ),
   );
 
   sl.registerLazySingleton<RecipeRemoteDataSource>(
-        () => RecipeRemoteDataSourceImpl(http.Client()),
+    () => RecipeRemoteDataSourceImpl(http.Client()),
   );
-
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 

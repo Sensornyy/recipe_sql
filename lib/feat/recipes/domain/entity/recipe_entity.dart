@@ -1,6 +1,6 @@
 class RecipeEntity {
   final String label;
-  final int calories;
+  final double calories;
   final String image;
   final List<String> ingredientLines;
 
