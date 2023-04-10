@@ -4,4 +4,6 @@ abstract class RecipeRepository {
   Future<List<RecipeEntity>> loadRecipes(String query);
 
   Future<void> saveRecipe(RecipeEntity recipe);
+
+  Future<List<RecipeEntity>> getRecipes();
 }

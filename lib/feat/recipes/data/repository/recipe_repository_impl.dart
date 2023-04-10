@@ -33,4 +33,13 @@ class RecipeRepositoryImpl implements RecipeRepository {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<List<RecipeEntity>> getRecipes() async {
+    try {
+      return await localDataSource.getRecipes();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

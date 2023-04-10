@@ -6,8 +6,9 @@ import 'package:recipe_sql/feat/recipes/presentation/widgets/recipe_cache_image.
 
 class RecipeCard extends StatelessWidget {
   final RecipeEntity recipe;
+  final int index;
 
-  const RecipeCard(this.recipe, {Key? key}) : super(key: key);
+  const RecipeCard(this.recipe, this.index, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class RecipeCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RecipeInfo(recipe),
+              builder: (context) => RecipeInfo(recipe, index),
             ),
           );
         },
@@ -28,7 +29,7 @@ class RecipeCard extends StatelessWidget {
             child: Column(
               children: [
                 Hero(
-                  tag: recipe.image,
+                  tag: '${recipe.image}$index',
                   child: RecipeCacheImage(
                     recipe.image,
                     width: double.infinity,

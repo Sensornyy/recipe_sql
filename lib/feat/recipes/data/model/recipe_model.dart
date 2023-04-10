@@ -17,4 +17,15 @@ class RecipeModel extends RecipeEntity with _$RecipeModel {
 
   factory RecipeModel.fromJson(Map<String, Object?> json) =>
       _$RecipeModelFromJson(json);
+
+  factory RecipeModel.fromSql(Map<String, Object?> json) {
+    String str = json['ingredientLines'] as String;
+
+    return RecipeModel(
+      label: json['label'] as String,
+      calories: (json['calories'] as num).toDouble(),
+      image: json['image'] as String,
+      ingredientLines: str.substring(1, str.length - 1).split(", "),
+    );
+  }
 }

@@ -5,4 +5,6 @@ class RecipeEvent with _$RecipeEvent {
   const factory RecipeEvent.load(String query) = _Load;
 
   const factory RecipeEvent.save(RecipeEntity recipe) = _Save;
+
+  const factory RecipeEvent.get() = _Get;
 }
