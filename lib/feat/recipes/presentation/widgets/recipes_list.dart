@@ -36,7 +36,7 @@ class RecipesList extends StatelessWidget {
                 mainAxisSpacing: 20),
             itemCount: recipes.length,
             itemBuilder: (BuildContext ctx, index) {
-              return RecipeCard(recipes[index]);
+              return RecipeCard(recipes[index], index);
             },
           ),
         );
