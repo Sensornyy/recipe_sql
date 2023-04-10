@@ -21,11 +21,14 @@ class RecipeModel extends RecipeEntity with _$RecipeModel {
   factory RecipeModel.fromSql(Map<String, Object?> json) {
     String str = json['ingredientLines'] as String;
 
+    List<dynamic> stringList =
+        str.replaceAll('["', '').replaceAll('"]', '').split('","');
+
     return RecipeModel(
       label: json['label'] as String,
       calories: (json['calories'] as num).toDouble(),
       image: json['image'] as String,
-      ingredientLines: str.substring(1, str.length - 1).split(", "),
+      ingredientLines: (stringList).map((e) => e as String).toList(),
     );
   }
 }

@@ -21,7 +21,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
     if (await networkInfo.isConnected) {
       return await remoteDataSource.loadRecipes(query);
     } else {
-      throw Exception();
+      return await localDataSource.getRecipes();
     }
   }
 
@@ -39,6 +39,15 @@ class RecipeRepositoryImpl implements RecipeRepository {
     try {
       return await localDataSource.getRecipes();
     } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> deleteRecipe(RecipeEntity recipe) async {
+    try {
+      await localDataSource.deleteRecipe(recipe as RecipeModel);
+    } catch (e){
       throw Exception(e);
     }
   }

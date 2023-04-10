@@ -10,5 +10,7 @@ class RecipeState with _$RecipeState {
 
   const factory RecipeState.saved() = _Saved;
 
+  const factory RecipeState.deleted(RecipeEntity recipe) = _Deleted;
+
   const factory RecipeState.failed() = _Failed;
 }

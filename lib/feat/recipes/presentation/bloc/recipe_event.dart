@@ -7,4 +7,6 @@ class RecipeEvent with _$RecipeEvent {
   const factory RecipeEvent.save(RecipeEntity recipe) = _Save;
 
   const factory RecipeEvent.get() = _Get;
+
+  const factory RecipeEvent.delete(RecipeEntity recipe) = _Delete;
 }

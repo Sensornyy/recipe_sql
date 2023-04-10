@@ -8,6 +8,8 @@ abstract class RecipeLocalDataSource {
   Future<void> saveRecipe(RecipeModel recipe);
 
   Future<List<RecipeModel>> getRecipes();
+
+  Future<void> deleteRecipe(RecipeModel recipe);
 }
 
 class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
@@ -30,5 +32,13 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
     final recipes = await db.rawQuery('SELECT * FROM recipes');
 
     return recipes.map((recipe) => RecipeModel.fromSql(recipe)).toList();
+  }
+
+  @override
+  Future<void> deleteRecipe(RecipeModel recipe) async {
+    final result =
+        await db.rawDelete('DELETE FROM recipes WHERE label = ?', [recipe.label]);
+
+    assert(result == 1);
   }
 }

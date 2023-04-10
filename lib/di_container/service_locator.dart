@@ -8,6 +8,7 @@ import 'package:recipe_sql/feat/recipes/data/data_sources/recipe_local_data_sour
 import 'package:recipe_sql/feat/recipes/data/data_sources/recipe_remote_data_source.dart';
 import 'package:recipe_sql/feat/recipes/data/repository/recipe_repository_impl.dart';
 import 'package:recipe_sql/feat/recipes/domain/repository/recipe_repository.dart';
+import 'package:recipe_sql/feat/recipes/domain/use_case/delete_recipe_use_case.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/get_recipes.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/load_recipes_use_case.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/save_recipe_use_case.dart';
@@ -25,6 +26,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SaveRecipeUseCase(sl()));
 
   sl.registerLazySingleton(() => GetRecipesUseCase(sl()));
+
+  sl.registerLazySingleton(() => DeleteRecipeUseCase(sl()));
 
   sl.registerLazySingleton<RecipeRepository>(
     () => RecipeRepositoryImpl(
