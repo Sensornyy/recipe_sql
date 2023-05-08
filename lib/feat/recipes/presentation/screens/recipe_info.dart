@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_sql/feat/recipes/domain/entity/recipe_entity.dart';
 import 'package:recipe_sql/feat/recipes/presentation/bloc/recipe_bloc.dart';
 import 'package:recipe_sql/di_container/service_locator.dart' as di;
-import 'package:recipe_sql/feat/recipes/presentation/screens/recipes_screen.dart';
 import 'package:recipe_sql/feat/recipes/presentation/widgets/recipe_cache_image.dart';
 
 class RecipeInfo extends StatelessWidget {
@@ -57,13 +56,7 @@ class RecipeInfo extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RecipeScreen(),
-                  ),
-                );
-
+                Navigator.pop(context);
               },
             ),
             centerTitle: true,
@@ -167,60 +160,63 @@ class RecipeInfo extends StatelessWidget {
               ),
             ),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Hero(
-                  tag: '${recipe.image}$index',
-                  child: RecipeCacheImage(
-                    recipe.image,
-                    width: double.infinity,
-                    height: 400,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Ingredients',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: SizedBox(
-                    height: 250,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => Text(
-                        '- ${recipe.ingredientLines[index]}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      itemCount: recipe.ingredientLines.length,
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Hero(
+                    tag: '${recipe.image}$index',
+                    child: RecipeCacheImage(
+                      recipe.image,
+                      width: double.infinity,
+                      height: 400,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '${recipe.calories.round()} Kcal',
-                        style: const TextStyle(
-                          color: Colors.indigo,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Ingredients',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SizedBox(
+                      height: 250,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Text(
+                          '- ${recipe.ingredientLines[index]}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        itemCount: recipe.ingredientLines.length,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${recipe.calories.round()} Kcal',
+                          style: const TextStyle(
+                            color: Colors.indigo,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
