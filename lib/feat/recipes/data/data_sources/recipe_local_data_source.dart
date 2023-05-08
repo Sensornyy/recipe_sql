@@ -10,6 +10,8 @@ abstract class RecipeLocalDataSource {
   Future<List<RecipeModel>> getRecipes();
 
   Future<void> deleteRecipe(RecipeModel recipe);
+
+  Future<void> editRecipe(RecipeModel recipe, RecipeModel newRecipe);
 }
 
 class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
@@ -36,9 +38,25 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
 
   @override
   Future<void> deleteRecipe(RecipeModel recipe) async {
-    final result =
-        await db.rawDelete('DELETE FROM recipes WHERE label = ?', [recipe.label]);
+    final result = await db
+        .rawDelete('DELETE FROM recipes WHERE label = ?', [recipe.label]);
 
     assert(result == 1);
+  }
+
+  @override
+  Future<void> editRecipe(RecipeModel recipe, RecipeModel newRecipe) async {
+    final ingredients = jsonEncode(newRecipe.ingredientLines);
+
+    await db.rawUpdate(
+      'UPDATE recipes SET label = ?, calories = ?, image = ?, ingredientLines = ? WHERE label = ?',
+      [
+        newRecipe.label,
+        newRecipe.calories,
+        newRecipe.image,
+        ingredients,
+        recipe.label,
+      ],
+    );
   }
 }

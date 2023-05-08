@@ -8,4 +8,6 @@ abstract class RecipeRepository {
   Future<List<RecipeEntity>> getRecipes();
 
   Future<void> deleteRecipe(RecipeEntity recipe);
+
+  Future<void> editRecipe(RecipeEntity recipe, RecipeEntity newRecipe);
 }

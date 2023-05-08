@@ -12,5 +12,10 @@ class RecipeState with _$RecipeState {
 
   const factory RecipeState.deleted(RecipeEntity recipe) = _Deleted;
 
+  const factory RecipeState.edited(
+    RecipeEntity recipe,
+    RecipeEntity newRecipe,
+  ) = _Edited;
+
   const factory RecipeState.failed() = _Failed;
 }

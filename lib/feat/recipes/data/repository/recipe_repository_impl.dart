@@ -47,7 +47,19 @@ class RecipeRepositoryImpl implements RecipeRepository {
   Future<void> deleteRecipe(RecipeEntity recipe) async {
     try {
       await localDataSource.deleteRecipe(recipe as RecipeModel);
-    } catch (e){
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> editRecipe(RecipeEntity recipe, RecipeEntity newRecipe) async {
+    try {
+      await localDataSource.editRecipe(
+        recipe as RecipeModel,
+        newRecipe as RecipeModel,
+      );
+    } catch (e) {
       throw Exception(e);
     }
   }

@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_sql/di_container/service_locator.dart' as di;
 import 'package:recipe_sql/feat/recipes/domain/entity/recipe_entity.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/delete_recipe_use_case.dart';
+import 'package:recipe_sql/feat/recipes/domain/use_case/edit_recipe_use_case.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/get_recipes.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/load_recipes_use_case.dart';
 import 'package:recipe_sql/feat/recipes/domain/use_case/save_recipe_use_case.dart';
@@ -19,37 +20,41 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final SaveRecipeUseCase saveRecipe = di.sl<SaveRecipeUseCase>();
   final GetRecipesUseCase getRecipes = di.sl<GetRecipesUseCase>();
   final DeleteRecipeUseCase deleteRecipes = di.sl<DeleteRecipeUseCase>();
+  final EditRecipeUseCase editRecipes = di.sl<EditRecipeUseCase>();
 
   RecipeBloc() : super(const RecipeState.initial()) {
     on<RecipeEvent>((event, emit) async {
-      await event.when(
-        load: (String query) async {
-          emit(const RecipeState.loading());
+      await event.when(load: (String query) async {
+        emit(const RecipeState.loading());
 
-          final result = await loadRecipe(query);
+        final result = await loadRecipe(query);
 
-          emit(RecipeState.loaded(result));
-        },
-        save: (RecipeEntity recipe) async {
-          await saveRecipe(recipe);
+        emit(RecipeState.loaded(result));
+      }, save: (RecipeEntity recipe) async {
+        await saveRecipe(recipe);
 
-          emit(const RecipeState.saved());
-        },
-        get: () async {
-          emit(const RecipeState.loading());
+        emit(const RecipeState.saved());
+      }, get: () async {
+        emit(const RecipeState.loading());
 
-          final result = await getRecipes();
+        final result = await getRecipes();
 
-          emit(RecipeState.loaded(result));
-        },
-        delete: (RecipeEntity recipe) async {
-          emit(const RecipeState.loading());
+        emit(RecipeState.loaded(result));
+      }, delete: (RecipeEntity recipe) async {
+        emit(const RecipeState.loading());
 
-          await deleteRecipes(recipe);
+        await deleteRecipes(recipe);
 
-          emit(RecipeState.deleted(recipe));
-        },
-      );
+        emit(RecipeState.deleted(recipe));
+      }, edit: (RecipeEntity recipe, RecipeEntity newRecipe) async {
+        emit(const RecipeState.loading());
+
+        await editRecipes(recipe, newRecipe);
+
+        emit(RecipeState.edited(recipe, newRecipe));
+
+        // TODO: add loaded state
+      });
     });
   }
 }

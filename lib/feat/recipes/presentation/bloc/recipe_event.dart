@@ -9,4 +9,9 @@ class RecipeEvent with _$RecipeEvent {
   const factory RecipeEvent.get() = _Get;
 
   const factory RecipeEvent.delete(RecipeEntity recipe) = _Delete;
+
+  const factory RecipeEvent.edit(
+    RecipeEntity recipe,
+    RecipeEntity newRecipe,
+  ) = _Edit;
 }
